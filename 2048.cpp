@@ -352,7 +352,7 @@ int find_best_move_original(board_t board) {
     float best = 0;
     int bestmove = -1;
 
-    print_board(board);
+//    print_board(board);
 //    printf("Current scores: heur %.0f, actual %.0f\n", score_heur_board(board), score_board(board));
 
     for(move=0; move<4; move++) {
@@ -428,8 +428,6 @@ static board_t initial_board() {
 
 void play_game(get_move_func_t get_move) {
 	uint16_t xboard[SIZE][SIZE];
-	char c;
-	bool success;
 
 	printf("\033[?25l\033[2J\033[H");
 
@@ -456,13 +454,26 @@ void play_game(get_move_func_t get_move) {
         if(move == 4)
             break; // no legal moves
 
-//        printf("\nMove #%d, current score=%.0f\n", ++moveno, score_board(board) - scorepenalty);
+
 
         move = get_move(board);
         if(move < 0)
             break;
 
+        if (move == 0){
+            printf("\nMove #%d, moving    up\n", ++moveno);
+        }
+        else if (move == 1){
+            printf("\nMove #%d, moving  down\n", ++moveno);
+        }
+        else if (move == 2){
+            printf("\nMove #%d, moving  left\n", ++moveno);
+        }
+        else{
+            printf("\nMove #%d, moving right\n", ++moveno);
+        }
         newboard = execute_move(move, board);
+
 
         board_t tile = draw_tile();
         if (tile == 2) scorepenalty += 4;
@@ -657,7 +668,8 @@ int main(int argc, char **argv) {
 	}
 	DEBUG = true;
 	
-    play_game(find_best_move_montecarlo);
+//    play_game(find_best_move_montecarlo);
+	play_game(find_best_move_original);
 }
 
 
