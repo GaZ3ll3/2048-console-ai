@@ -479,7 +479,6 @@ void play_game(get_move_func_t get_move) {
         if (tile == 2) scorepenalty += 4;
         board = insert_tile_rand(newboard, tile);
         convert(board, xboard);
-		usleep(15000);
     	drawBoard(xboard,score_board(board) - scorepenalty);
     }
 	setBufferedInput(true);
