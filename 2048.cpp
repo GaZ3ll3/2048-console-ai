@@ -6,9 +6,8 @@
 #include <time.h>
 #include <algorithm>
 
-extern "C"{
 #include "2049.h"
-}
+
 
 #include "config.h"
 #if defined(HAVE_UNORDERED_MAP)
@@ -429,6 +428,8 @@ static board_t initial_board() {
 void play_game(get_move_func_t get_move) {
 	uint16_t xboard[SIZE][SIZE];
 
+	std::fstream frecord("./record.txt", std::ios_base::out);
+
 	printf("\033[?25l\033[2J\033[H");
 
 
@@ -461,16 +462,16 @@ void play_game(get_move_func_t get_move) {
             break;
 
         if (move == 0){
-            printf("\nMove #%d, moving    up\n", ++moveno);
+            printf("\nMove #%d, moving   left\n", ++moveno);
         }
         else if (move == 1){
-            printf("\nMove #%d, moving  down\n", ++moveno);
+            printf("\nMove #%d, moving  right\n", ++moveno);
         }
         else if (move == 2){
-            printf("\nMove #%d, moving  left\n", ++moveno);
+            printf("\nMove #%d, moving     up\n", ++moveno);
         }
         else{
-            printf("\nMove #%d, moving right\n", ++moveno);
+            printf("\nMove #%d, moving   down\n", ++moveno);
         }
         newboard = execute_move(move, board);
 
@@ -480,7 +481,11 @@ void play_game(get_move_func_t get_move) {
         board = insert_tile_rand(newboard, tile);
         convert(board, xboard);
     	drawBoard(xboard,score_board(board) - scorepenalty);
+
+    	frecord << moveno << " , " << score_board(board) - scorepenalty << std::endl;
     }
+
+    frecord.close();
 	setBufferedInput(true);
 
 	printf("\033[?25h");
