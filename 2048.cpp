@@ -277,8 +277,8 @@ static float score_tilechoose_node(eval_state &state, board_t board, float cprob
 // cprob: cumulative probability
 // don't recurse into a node with a cprob less than this threshold
 static const float CPROB_THRESH_BASE = 0.0001f;
-static const int CACHE_DEPTH_LIMIT  = 6;
-static const int SEARCH_DEPTH_LIMIT = 8;
+static const int CACHE_DEPTH_LIMIT  = 3;
+static const int SEARCH_DEPTH_LIMIT = 4;
 
 static float score_move_node(eval_state &state, board_t board, float cprob) {
     if (cprob < state.cprob_thresh || state.curdepth >= SEARCH_DEPTH_LIMIT) {
