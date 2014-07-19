@@ -1,4 +1,4 @@
 all:
 	g++ -Werror -g -O3 -o 2048 2048.cpp
 clean:
-	rm 2048
+	rm -rf 2048 record.txt
