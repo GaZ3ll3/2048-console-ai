@@ -20,3 +20,5 @@
 *.out
 *.app
 2048
+.cproject
+.project
